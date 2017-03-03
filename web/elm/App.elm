@@ -9,7 +9,7 @@ import Html.App
 import Html.Events exposing (onInput, onSubmit)
 
 import Json.Encode as JsEncode
-import Json.Decode as JsDecode exposing ( (:=) )
+import Json.Decode as JsDecode
 
 type alias ChatMessagePayload =
   {
@@ -110,8 +110,7 @@ update msg model =
       )
     ReceiveChatMessage raw ->
       let
-       messageDecoder =
-           "message" := JsDecode.string
+       messageDecoder = JsDecode.field "message" JsDecode.string
        somePayload = JsDecode.decodeValue messageDecoder raw
       in
        case somePayload of
