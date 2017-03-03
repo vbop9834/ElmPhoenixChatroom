@@ -5,7 +5,6 @@ import Phoenix.Channel
 import Phoenix.Push
 
 import Html exposing (Html, div, li, ul, text, form, input, button)
-import Html.App
 import Html.Events exposing (onInput, onSubmit)
 
 import Json.Encode as JsEncode
@@ -135,7 +134,7 @@ subscriptions model =
 
 main : Program Never
 main =
-  Html.App.program
+  Html.program
     {
       init = init,
       view = view,
