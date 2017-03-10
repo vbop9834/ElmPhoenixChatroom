@@ -132,7 +132,7 @@ subscriptions : Model -> Sub Msg
 subscriptions model =
   Phoenix.Socket.listen model.phxSocket PhoenixMsg
 
-main : Program Never
+main : Program Never Model Msg
 main =
   Html.program
     {
