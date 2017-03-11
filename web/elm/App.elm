@@ -5,11 +5,10 @@ import Phoenix.Channel
 import Phoenix.Push
 
 import Html exposing (Html, div, li, ul, text, form, input, button)
-import Html.App
 import Html.Events exposing (onInput, onSubmit)
 
 import Json.Encode as JsEncode
-import Json.Decode as JsDecode exposing ( (:=) )
+import Json.Decode as JsDecode
 
 type alias ChatMessagePayload =
   {
@@ -110,8 +109,7 @@ update msg model =
       )
     ReceiveChatMessage raw ->
       let
-       messageDecoder =
-           "message" := JsDecode.string
+       messageDecoder = JsDecode.field "message" JsDecode.string
        somePayload = JsDecode.decodeValue messageDecoder raw
       in
        case somePayload of
@@ -134,9 +132,9 @@ subscriptions : Model -> Sub Msg
 subscriptions model =
   Phoenix.Socket.listen model.phxSocket PhoenixMsg
 
-main : Program Never
+main : Program Never Model Msg
 main =
-  Html.App.program
+  Html.program
     {
       init = init,
       view = view,
